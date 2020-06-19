@@ -1,4 +1,4 @@
-# inputwidgets
+# CRUD Flutter App
 
 A new Flutter application.
 
