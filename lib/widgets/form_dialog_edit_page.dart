@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grouped_checkbox/grouped_checkbox.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inputwidgets/models/product_model.dart';
 import 'package:inputwidgets/providers/products_provider.dart';
@@ -18,11 +19,18 @@ class EditDialogFormPage extends StatefulWidget {
 }
 
 class _EditDialogFormPageState extends State<EditDialogFormPage> {
+
+  //Target User Checkbox list
+  static List<String> checkedItemList = [];
+  List<String> selectedItemList = checkedItemList ?? [];
+
+
   String imagePath;
   final _formKey = GlobalKey<FormState>();
   Product product = Product();
   String category = 'Electronics';
   var unit = Unit.PCS;
+  ProductsProvider productProvider;
 
 
 
@@ -32,6 +40,7 @@ class _EditDialogFormPageState extends State<EditDialogFormPage> {
     super.initState();
     Provider.of<ProductsProvider>(context, listen: false).fetchProduct(widget.id);
   }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductsProvider>(
@@ -134,11 +143,12 @@ class _EditDialogFormPageState extends State<EditDialogFormPage> {
 
                   SizedBox(height: 10.0,),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Text(provider.product.date == null ? 'No date chosen' : provider.product.date),
                       FlatButton(
-                        child: Text(provider.product.date == null ? 'Select Date' : 'Edit Date'),
+                        color: Colors.grey.shade300,
+                        child: Text(provider.product.date == null ? 'Select Date' : 'Edit Date',),
                         onPressed: (){
                           showDatePicker(
                             context: context,
@@ -185,6 +195,36 @@ class _EditDialogFormPageState extends State<EditDialogFormPage> {
                       ),
                     ],
                   ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
+                    child: Text(
+                      'Edit Target User: ',
+                      style: TextStyle(color: Colors.grey.shade800, fontSize: 15.0,),textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 90),
+                    child: GroupedCheckbox(
+                      wrapSpacing: 10.0,
+                      wrapRunSpacing: 15.0,
+                      wrapRunAlignment: WrapAlignment.center,
+                      wrapVerticalDirection: VerticalDirection.down,
+                      wrapAlignment: WrapAlignment.center,
+                      itemList: allItemList,
+                      checkedItemList:  selectedItemList,
+                      onChanged: (itemList) {
+                        setState(() {
+                          selectedItemList = itemList;
+                          print('SELECTED ITEM LIST $itemList');
+                        });
+                      },
+                      orientation: CheckboxOrientation.VERTICAL,
+                      checkColor: Colors.white,
+                      activeColor: Colors.blue,
+                    ),
+                  ),
+
 
                   SizedBox(height: 10.0,),
                   Container(
@@ -238,7 +278,7 @@ class _EditDialogFormPageState extends State<EditDialogFormPage> {
                         onPressed: (){
                           if(_formKey.currentState.validate()){
                             _formKey.currentState.save();
-                            provider.product.unit = unit;
+                            provider.product.target = selectedItemList.toString();
                             Provider.of<ProductsProvider>(context, listen: false).updateProduct(provider.product);
                             Navigator.of(context).pop();
                             print(product);

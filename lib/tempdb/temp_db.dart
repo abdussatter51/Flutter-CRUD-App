@@ -5,8 +5,14 @@ List<Product> productList=[];
 List<String> categories = [
   'Electronics', 'Smart Phone', 'Camera', 'Smart TV', 'Smart Watch', 'Households', 'Food'
 ];
-List<String> target = [
+/*List<String> targets = [
   'Men', 'Women', 'Child'
+];*/
+List<String> allItemList = [
+  'Men',
+  'Women',
+  'Baby',
+  'Child',
 ];
 
 enum Unit {

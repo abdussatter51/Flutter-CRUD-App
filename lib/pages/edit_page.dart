@@ -24,46 +24,6 @@ class _EditPageState extends State<EditPage> {
   String category = 'Electronics';
   var unit = Unit.PCS;
 
-
-  /*Future _takePicture() async{
-    PickedFile file = await ImagePicker().getImage(source: ImageSource.camera);
-    setState(() {
-      imagePath = file.path;
-      product.image = imagePath;
-    });
-  }*/
- /* Future _takeFromGallery() async{
-    PickedFile file = await ImagePicker().getImage(source: ImageSource.gallery);
-    setState(() {
-      imagePath = file.path;
-      product.image = imagePath;
-    });
-  }*/
-
-  /*void _selectDateFromUser(){
-    showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1987),
-      lastDate: DateTime.now(),
-    ).then((newDate) {
-      product.date = DateFormat('dd/MM/yyyy').format(newDate);
-      setState(() {
-        _selectedDate = newDate;
-      });
-    });
-  }*/
-
-  /*void _updateProduct() async{
-    if(_formKey.currentState.validate()){
-      _formKey.currentState.save();
-      product.category = category;
-      product.unit = unit;
-      Provider.of<ProductsProvider>(context, listen: false).updateProduct(product);
-      Navigator.of(context).pop();
-      print(product);
-    }
-  }*/
   @override
   void initState() {
     // TODO: implement initState

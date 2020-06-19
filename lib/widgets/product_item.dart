@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inputwidgets/db/db_helper.dart';
-import 'package:inputwidgets/models/cart_provider.dart';
+import 'file:///D:/Flutter%20App/Flutter-CRUD-App/lib/providers/cart_provider.dart';
 import 'package:inputwidgets/models/product_model.dart';
 import 'package:inputwidgets/pages/product_details.dart';
 import 'package:inputwidgets/providers/products_provider.dart';

@@ -248,11 +248,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Column(
                   children: <Widget>[
                     Text('Description:  ', style: TextStyle(fontSize: 20, color: Colors.blue, fontWeight: FontWeight.bold,),),
+                    Text(provider.product.target),
                     Text('Description: ${provider.product.description}',
                       style: TextStyle(fontStyle: FontStyle.italic, fontSize: 18, color: Colors.grey),),
                   ],
                 ),
-                RaisedButton(
+                /*RaisedButton(
                   color: Colors.green,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
@@ -266,7 +267,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       dialogType: DialogType.WARNING,
                       keyboardAware: false,
                       body: EditDialogFormPage(widget.id),
-                      /*Padding(
+                      *//*Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: <Widget>[
@@ -353,19 +354,23 @@ class _ProductDetailsState extends State<ProductDetails> {
                             ),
                           ],
                         ),
-                      ),*/
+                      ),*//*
                     )..show();
                   },
-                ),
+                ),*/
                 
-                /*RaisedButton(
-                  child: Icon(Icons.edit),
+                RaisedButton(
+                  color: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Text('Edit Product Info', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
                   onPressed: (){
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => EditFormPage(provider.product.id)
+                        builder: (context) => EditPage (provider.product.id)
                     ));
                   },
-                )*/
+                )
               ],
             )
       )

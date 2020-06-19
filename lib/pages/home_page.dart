@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:inputwidgets/db/db_helper.dart';
-import 'package:inputwidgets/models/cart_provider.dart';
+import 'file:///D:/Flutter%20App/Flutter-CRUD-App/lib/providers/cart_provider.dart';
 import 'package:inputwidgets/models/product_model.dart';
 import 'package:inputwidgets/pages/add_product_page.dart';
 import 'package:inputwidgets/pages/cart_page.dart';

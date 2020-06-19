@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grouped_checkbox/grouped_checkbox.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:inputwidgets/db/db_helper.dart';
 import 'package:inputwidgets/models/product_model.dart';
 import 'package:inputwidgets/providers/products_provider.dart';
 import 'package:inputwidgets/tempdb/temp_db.dart';
@@ -16,6 +16,13 @@ class AddProductPage extends StatefulWidget {
 }
 
 class _AddProductPageState extends State<AddProductPage> {
+
+  //Target User Checkbox list
+  static List<String> checkedItemList = ['Men'];
+  List<String> selectedItemList = checkedItemList ?? [];
+
+
+
   DateTime _selectedDate;
   String imagePath = null;
   final _formKey = GlobalKey<FormState>();
@@ -57,15 +64,10 @@ class _AddProductPageState extends State<AddProductPage> {
     if(_formKey.currentState.validate()){
       _formKey.currentState.save();
       product.category = category;
+      product.target = selectedItemList.toString();
       product.unit = unit;
       Provider.of<ProductsProvider>(context, listen: false).addProduct(product);
       Navigator.of(context).pop();
-     /* if(id > 0){
-        Navigator.of(context).pop();
-        print('Saved!');
-      }else{
-        print('failed to save');
-      }*/
 
     }
   }
@@ -168,9 +170,11 @@ class _AddProductPageState extends State<AddProductPage> {
               ),
               SizedBox(height: 10.0,),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Text(_selectedDate == null ? 'No date chosen' : DateFormat('dd/MM/yyyy').format(_selectedDate)),
                   FlatButton(
+                    color: Colors.grey.shade300,
                     child: Text('Select Date'),
                     onPressed: _selectDateFromUser,
                   ),
@@ -257,48 +261,49 @@ class _AddProductPageState extends State<AddProductPage> {
                 ],
               ),
               SizedBox(height: 10.0,),
-              /*Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text('Target User:', style: TextStyle(fontSize: 16.0,fontStyle: FontStyle.italic , color: Colors.grey.shade600),),
-                      Checkbox(
-                        value: men,
-                        onChanged: (value){
-                          setState(() {
-                            men = value;
-                          });
-                        },
-                      ),
-                      Text('Men'),
-                      Checkbox(
-                        value: women,
-                        onChanged: (value){
-                          setState(() {
-                            women = value;
-                          });
-                        },
-                      ),
-                      Text('Women'),
-                      Checkbox(
-                        value: child,
-                        onChanged: (value){
-                          setState(() {
-                            child = value;
-                          });
-                        },
-                      ),
-                      Text('Child'),
-                    ],
-                  ),
-                ],
-              ),*/
+
+
+
+
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                child: Text(
+                  'Target User: ',
+                  style: TextStyle(color: Colors.grey.shade600, fontSize: 15.0,),textAlign: TextAlign.center,
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: GroupedCheckbox(
+                  wrapSpacing: 10.0,
+                  wrapRunSpacing: 15.0,
+                  wrapRunAlignment: WrapAlignment.center,
+                  wrapVerticalDirection: VerticalDirection.down,
+                  wrapAlignment: WrapAlignment.center,
+                  itemList: allItemList,
+                  checkedItemList: checkedItemList,
+                  onChanged: (itemList) {
+                    setState(() {
+                      selectedItemList = itemList;
+                      print('SELECTED ITEM LIST $itemList');
+                    });
+                  },
+                  orientation: CheckboxOrientation.HORIZONTAL,
+                  checkColor: Colors.white,
+                  activeColor: Colors.blue,
+                ),
+              ),
+
+
+
+
+
               SizedBox(height: 10.0,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Container(
+                    alignment: Alignment.center,
                     width: 100,
                     height: 100,
                     decoration: BoxDecoration(
