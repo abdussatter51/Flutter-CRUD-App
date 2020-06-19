@@ -1,6 +1,6 @@
 # CRUD Flutter App
 
-A new Flutter application.
+This app shows how add input from, edit form, update form and delete form data. It's complete CRUD based flutter app.
 
 ## Getting Started
 
